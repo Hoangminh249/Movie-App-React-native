@@ -44,7 +44,7 @@ function MovieScreen() {
     setLoading(true);
     getMovieDetails(item.id);
     getMovieCredits(item.id);
-    getMovieSimilar(item.id)
+    getMovieSimilar(item.id);
   }, [item]);
 
   const getMovieDetails = async (id) => {
@@ -52,16 +52,16 @@ function MovieScreen() {
     if (data) setMovie(data);
     setLoading(false);
   };
-  
+
   const getMovieCredits = async (id) => {
-      const data = await fetchMovieCredits(id);
-    if (data && data.cast) setCast(data.cast) 
-    }
+    const data = await fetchMovieCredits(id);
+    if (data && data.cast) setCast(data.cast);
+  };
 
   const getMovieSimilar = async (id) => {
     const data = await fetchSimilarMovies(id);
-    if(data && data.results) setSimilarMovies(data.results)
-  }
+    if (data && data.results) setSimilarMovies(data.results);
+  };
 
   return (
     <ScrollView
@@ -152,27 +152,16 @@ function MovieScreen() {
               </Text>
             );
           })}
-          {/* <Text className="text-neutral-400 font-semibold text-base text-center">
-            Action *
-          </Text>
-          <Text className="text-neutral-400 font-semibold text-base text-center">
-            Thrill *
-          </Text>
-          <Text className="text-neutral-400 font-semibold text-base text-center">
-            Comedy *
-          </Text> */}
         </View>
 
         {/* Description */}
         <Text className="text-neutral-400 mx-4 tracking-wide">
-          {
-            movie?.overview
-          }
+          {movie?.overview}
         </Text>
       </View>
 
       {/* Cast*/}
-      <Cast navigation={navigation} cast={cast} />
+      {cast.length > 0 && <Cast navigation={navigation} cast={cast} />}
 
       {/* similar Movies*/}
       <MovieList
